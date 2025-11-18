@@ -1,9 +1,10 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports Microsoft.SqlServer
+Imports MySql.Data.MySqlClient
 
 Public Class Form1
 
     Dim conn As MySqlConnection
-    Dim COMMAND As MysqlCommand
+    Dim COMMAND As MySqlCommand
     Private Sub ButtonConnect_Click(sender As Object, e As EventArgs) Handles ButtonConnect.Click
         conn = New MySqlConnection
         conn.ConnectionString = "server=localhost;userid=root;password=root;database=crud_demo_db;"
@@ -20,6 +21,23 @@ Public Class Form1
     End Sub
 
     Private Sub ButtonInsert_Click(sender As Object, e As EventArgs) Handles ButtonInsert.Click
+        Dim query As String = "INSERT INTO students_tbl (name, age, email) VALUES (@name, @age, @email)"
+        Try
+            Using conn As New MySqlConnection("Server = localhost;userid=root;password=root;database=crud_demo_db;")
+                conn.Open()
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@name", TextBoxName.Text)
+                    cmd.Parameters.AddWithValue("@age", CInt(TextBoxAge.Text))
+                    cmd.Parameters.AddWithValue("@email", TextBoxEmail.Text)
+                    cmd.ExecuteNonQuery()
+
+                    MessageBox.Show("Record Inserted Successfully")
+
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        End Try
 
     End Sub
 End Class
