@@ -5,11 +5,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
     Dim conn As MySqlConnection
     Dim COMMAND As MySqlCommand
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        DataGridView1.MultiSelect = False
-        DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DataGridView1.AllowUserToAddRows = False
-    End Sub
+
 
 
     Private Sub ButtonConnect_Click(sender As Object, e As EventArgs) Handles ButtonConnect.Click
