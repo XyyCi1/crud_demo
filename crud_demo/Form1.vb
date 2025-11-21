@@ -8,7 +8,7 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DataGridView1.MultiSelect = False
         DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DataGridView1.AllowUserToAddRows = False ' This hides the blank new row!
+        DataGridView1.AllowUserToAddRows = False
     End Sub
 
 
@@ -68,7 +68,7 @@ Public Class Form1
     Private Sub ButtonDelete_Click(sender As Object, e As EventArgs) Handles ButtonDelete.Click
         If DataGridView1.SelectedRows.Count > 0 Then
             Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
-            Dim id As Integer = CInt(selectedRow.Cells("id").Value) ' Replace "id" with your actual ID column name
+            Dim id As Integer = CInt(selectedRow.Cells("id").Value)
 
             Dim query As String = "DELETE FROM students_tbl WHERE id = @id"
             Try
@@ -92,8 +92,11 @@ Public Class Form1
         End If
     End Sub
 
+
+
     Private Sub ButtonUpdate_Click(sender As Object, e As EventArgs) Handles ButtonUpdate.Click
         DataGridView1.EndEdit()
+
         Dim rowIndex As Integer = DataGridView1.CurrentCell.RowIndex
         Dim selectedRow As DataGridViewRow = DataGridView1.Rows(rowIndex)
         Dim idValue = selectedRow.Cells("id").Value
@@ -113,7 +116,7 @@ Public Class Form1
                         Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
                         If rowsAffected > 0 Then
                             MessageBox.Show("Record Updated Successfully")
-                            ButtonRead_Click(Nothing, Nothing) ' refresh grid
+                            ButtonRead_Click(Nothing, Nothing)
                         Else
                             MessageBox.Show("Update Failed: No matching record found")
                         End If
